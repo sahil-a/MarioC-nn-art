@@ -11,8 +11,18 @@ def left(seconds):
     time.sleep(seconds)
     app('System Events').key_up('a')
 
+def accelerate():
+    app('System Events').key_down('p')
+
+
 # EXAMPLE USE
+#  time.sleep(1)
 #  app('sixtyforce').activate()
 #  time.sleep(2)
-#  right(2)
-#  left(2)
+#  accelerate()
+#  left(1)
+#  right(1)
+#  left(1)
+#  left(1)
+#  right(1)
+
