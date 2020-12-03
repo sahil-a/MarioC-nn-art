@@ -3,9 +3,11 @@ import sys
 import os
 from appscript import app, k
 from pynput.keyboard import Listener, Key
+from threading import Thread
 
 sum = 0
 iter = 0
+
 
 def logger(track, trial):
     app('sixtyforce').activate()
@@ -17,15 +19,19 @@ def logger(track, trial):
     iter1 = 0
     keyval = 0
     while(keyval != -3):
-        path = "/data/%s/%s_%03d" % (base, base, iter1)
+        #path = "/data/%s/%s_%03d" % (base, base, iter1)
+        path = "/%s_%03d" % (base, iter1)
         screenshot(path)
         keyval = keystroke()
         # if(keyval == -3):
         #     break
+        print("hi")
         f.write("%s, %3f \n" % (path, keyval))
+        print("another one")
         iter1 = iter1 + 1
 
     end = time.time()
+    f.close()
     print("Total time taken: %3f sec" % ((end-start)/iter))
 
 
@@ -33,14 +39,19 @@ def screenshot(path):
     # Code for taking screenshot and save to path
     os.system(f'screencapture -R 750,245,620,450 {path}')
 
+
 def keystroke():
-    global iter 
-    global sum 
-    with Listener(on_press=on_press) as listener:  # Setup the listener
-        listener.join()  # Join the thread to the main thread
+    global iter
+    global sum
     sum = 0
     iter = 0
-    time.sleep(1)
+    with Listener(on_press=on_press) as listener:
+        def time_out(period_sec: int):
+            time.sleep(period_sec)
+            listener.stop()
+            # Setup the listener
+        Thread(target=time_out, args=(1.0,)).start()
+        listener.join()  # Join the thread to the main thread
     # elap = 0
     # start = time.time()
     # while(elap < 1):
@@ -51,20 +62,23 @@ def keystroke():
     #     val = 1 # delete
     #     sum = sum + val
     #     iter = iter + 1
-    listener.stop()
+    # listener.stop()
+    if iter == 0:
+        iter = 1
     return sum / iter
 
+
 def on_press(key):
-    global iter 
-    global sum 
-    val = 0 
-    iter = iter + 1 
+    global iter
+    global sum
+    val = 0
+    iter = iter + 1
     if hasattr(key, 'char'):  # Write the character pressed if available
         if key.char == 'd':
             val = 1
         elif key.char == 'a':
             val = -1
-    sum = sum+ val 
+    sum = sum + val
     # # elif key.name == 'a':
     # #     print("a")
     # # elif key.name == 's':
@@ -74,6 +88,7 @@ def on_press(key):
     # else:  # If anything else was pressed, write [<key_name>]
     #     f.write('[' + key.name + ']')
 
+
     # f.close()  # Close the file
 # First command line argument: track, second command line argument: trial number
 # Use q to break from program
@@ -81,4 +96,3 @@ if __name__ == "__main__":
     track = sys.argv[1]
     trial = sys.argv[2]
     logger(track, trial)
-
