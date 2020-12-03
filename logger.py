@@ -4,6 +4,7 @@ import os
 from appscript import app, k
 from pynput.keyboard import Listener, Key
 from threading import Thread
+from pathlib import Path
 
 sum = 0
 iter = 0
@@ -13,14 +14,15 @@ def logger(track, trial):
     app('sixtyforce').activate()
     time.sleep(10)
     base = track + "_trial_" + trial
+
     f = open("%s" % base, "a")
 
     start = time.time()
     iter1 = 0
     keyval = 0
     while(keyval != -3):
-        #path = "/data/%s/%s_%03d" % (base, base, iter1)
-        path = "/%s_%03d" % (base, iter1)
+        path = "data/%s_%03d" % (base, iter1)
+        # path = "/%s_%03d" % (base, iter1)
         screenshot(path)
         keyval = keystroke()
         # if(keyval == -3):
@@ -38,6 +40,7 @@ def logger(track, trial):
 def screenshot(path):
     # Code for taking screenshot and save to path
     os.system(f'screencapture -R 750,245,620,450 {path}')
+    print("after")
 
 
 def keystroke():
