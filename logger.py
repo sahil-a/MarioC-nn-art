@@ -12,9 +12,9 @@ sum = 0
 def logger(track, trial):
     app('sixtyforce').activate()
     time.sleep(10)
-    base = "data/data/" + track + "_trial_" + trial
+    base = track + "_trial_" + trial
 
-    f = open("%s" % base, "a")
+    f = open("data/data/%s" % base, "a")
 
     start = time.time()
     iter1 = 0
