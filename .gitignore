@@ -1,3 +1,4 @@
 *trial_*
 data/screenshots/*.png
 data/data/*_trial_*
+**.DS_Store
