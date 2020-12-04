@@ -11,7 +11,15 @@ sum = 0
 
 def logger(track, trial):
     app('sixtyforce').activate()
-    time.sleep(10)
+    time.sleep(1)
+    print("3")
+    time.sleep(1)
+    print("2")
+    time.sleep(1)
+    print("1")
+    time.sleep(1)
+    print("GO!")
+
     base = track + "_trial_" + trial
 
     f = open("data/data/%s" % base, "a")
@@ -36,7 +44,6 @@ def logger(track, trial):
 def screenshot(path):
     # Code for taking screenshot and save to path
     os.system(f'screencapture -R 750,245,620,450 {path}')
-    print("after")
 
 def keystroke():
     global sum
