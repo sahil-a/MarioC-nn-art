@@ -10,10 +10,10 @@ import tensorflow_datasets as tfds
 #Hyperparameters
 test_split = 0.3
 val_split = 0.2
-bs = 4
+bs = 32
 
-# training_files = ["koopa-troopa-beach_trial_1", "koopa-troopa-beach_trial_2", "luigi-raceway_trial_1", "luigi-raceway_trial_2", "mario-raceway_trial_1", "mario-raceway_trial_2", "moo-moo-farm_trial_1", "moo-moo-farm_trial_2"]
-training_files = ["koopa-troopa-beach_trial_1"]
+training_files = ["koopa-troopa-beach_trial_1", "koopa-troopa-beach_trial_2", "luigi-raceway_trial_1", "luigi-raceway_trial_2", "mario-raceway_trial_1", "mario-raceway_trial_2", "moo-moo-farm_trial_1", "moo-moo-farm_trial_2"]
+# training_files = ["koopa-troopa-beach_trial_1"]
 all_pic_locs = []
 all_vals = []
 
@@ -86,7 +86,7 @@ from tensorflow.keras import layers, models
 
 #Set hyperparameters:
 lr = 0.01
-epochs = 1
+epochs = 15
 
 #First model - final activation tanh
 def create_model_tanh():
